@@ -1,0 +1,109 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    /* Typography */
+    --font-heading: 'Inter Variable', system-ui, sans-serif;
+    --font-sans: 'Inter Variable', system-ui, sans-serif;
+
+    /* MedAxis custom colors */
+    --color-warm-white: #FFFCF9;
+    --color-warm-black: #2D2520;
+
+    --color-warm-gray-50: #F7F5F2;
+    --color-warm-gray-100: #EDE9E5;
+    --color-warm-gray-200: #DED8D2;
+    --color-warm-gray-300: #C9C1B9;
+    --color-warm-gray-600: #7A6E65;
+    --color-warm-gray-800: #4A433D;
+    --color-warm-gray-900: #2D2824;
+
+    --color-text-main: #4A403A;
+    --color-text-light: #6B5D54;
+    --color-text-muted: #9A8B82;
+
+    /* Warm shadows */
+    --shadow-warm-sm: 0 1px 2px rgba(74, 64, 58, 0.06);
+    --shadow-warm-md: 0 4px 6px rgba(74, 64, 58, 0.1);
+    --shadow-warm-lg: 0 10px 25px rgba(74, 64, 58, 0.12);
+    --shadow-warm-xl: 0 20px 40px rgba(74, 64, 58, 0.15);
+
+    /* shadcn mappings */
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+    /* MedAxis warm terracotta palette */
+    --background: #FFFCF9;
+    --foreground: #4A403A;
+    --card: #FFFCF9;
+    --card-foreground: #4A403A;
+    --popover: #FFFCF9;
+    --popover-foreground: #4A403A;
+    --primary: #C66B54;
+    --primary-foreground: #FFFCF9;
+    --secondary: #F7F5F2;
+    --secondary-foreground: #4A403A;
+    --muted: #F7F5F2;
+    --muted-foreground: #9A8B82;
+    --accent: #F7F5F2;
+    --accent-foreground: #4A403A;
+    --destructive: #dc2626;
+    --border: #DED8D2;
+    --input: #DED8D2;
+    --ring: #C66B54;
+    --radius: 0.5rem;
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+    html {
+        @apply font-sans scroll-smooth;
+    }
+}
