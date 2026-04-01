@@ -16,8 +16,8 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Телефон",
-    value: "8 800 123-45-67",
-    href: "tel:88001234567",
+    value: "+7 (707) 295-84-52",
+    href: "tel:+77072958452",
   },
   {
     icon: Mail,

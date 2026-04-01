@@ -1,9 +1,7 @@
 export const navLinks = [
-  { label: "Продукция", href: "#products" },
-  { label: "Склад", href: "#warehouse" },
+  { label: "Продукция", href: "/catalog" },
   { label: "Услуги", href: "#services" },
   { label: "Компания", href: "#company" },
-  { label: "Новости", href: "#news" },
   { label: "Контакты", href: "#contact" },
 ]
 
@@ -39,6 +37,6 @@ export const footerColumns = [
 
 export const footerContacts = {
   address: "г. Астана, пр. Туран 43",
-  phone: "8 800 123-45-67",
+  phone: "+7 (707) 295-84-52",
   email: "info@medaxis.kz",
 }
