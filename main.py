@@ -39,6 +39,15 @@ async def submit_contact(data: ContactRequest):
 # --- Production: раздача React-сборки ---
 
 if DIST_DIR.exists():
+    # SEO-файлы — должны быть доступны напрямую
+    @app.get("/robots.txt")
+    async def robots():
+        return FileResponse(DIST_DIR / "robots.txt", media_type="text/plain")
+
+    @app.get("/sitemap.xml")
+    async def sitemap():
+        return FileResponse(DIST_DIR / "sitemap.xml", media_type="application/xml")
+
     app.mount("/assets", StaticFiles(directory=DIST_DIR / "assets"), name="assets")
     app.mount("/images", StaticFiles(directory=DIST_DIR / "images"), name="images")
 
