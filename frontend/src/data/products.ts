@@ -8,6 +8,8 @@ export interface Product {
   status: "in_stock" | "coming_soon" | "out_of_stock"
   image: string | null
   brand: string
+  description?: string
+  specs?: { label: string; value: string }[]
 }
 
 // Mock product data — in production this comes from API
