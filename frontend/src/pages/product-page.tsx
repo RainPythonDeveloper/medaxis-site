@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import {
@@ -229,33 +229,8 @@ export function ProductPage() {
               </div>
             </div>
 
-            {/* Specs */}
-            {product.specs && product.specs.length > 0 && (
-              <div className="pt-4">
-                <h2 className="text-lg font-bold text-[#2D1810] mb-4">Характеристики</h2>
-                <div className="rounded-xl border border-warm-gray-200 bg-white overflow-hidden">
-                  {product.specs.map((spec, i) => (
-                    <div
-                      key={spec.label}
-                      className={`flex items-start gap-4 px-5 py-3 ${i % 2 === 0 ? "bg-warm-gray-50/50" : ""} ${i < product.specs!.length - 1 ? "border-b border-warm-gray-100" : ""}`}
-                    >
-                      <span className="text-sm text-warm-gray-600 min-w-[140px] shrink-0">{spec.label}</span>
-                      <span className="text-sm font-medium text-[#2D1810]">{spec.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Description */}
-            {product.description && (
-              <div className="pt-4">
-                <h2 className="text-lg font-bold text-[#2D1810] mb-4">Описание</h2>
-                <div className="prose prose-sm max-w-none text-[#5D4037]/80 leading-relaxed">
-                  <p>{product.description}</p>
-                </div>
-              </div>
-            )}
+            {/* Tabs: Описание / Характеристики */}
+            <ProductTabs product={product} />
 
             {/* Benefits */}
             <div className="pt-4 space-y-3">
@@ -294,6 +269,83 @@ export function ProductPage() {
 
         <div className="pb-16" />
       </Container>
+    </div>
+  )
+}
+
+/* ─── Tabs component ─── */
+
+type Tab = "description" | "specs"
+
+function ProductTabs({ product }: { product: Product }) {
+  const hasDescription = !!product.description
+  const hasSpecs = !!(product.specs && product.specs.length > 0)
+  const [activeTab, setActiveTab] = useState<Tab>(hasDescription ? "description" : "specs")
+
+  if (!hasDescription && !hasSpecs) return null
+
+  const tabs: { id: Tab; label: string; available: boolean }[] = [
+    { id: "description", label: "Описание", available: hasDescription },
+    { id: "specs", label: "Характеристики", available: hasSpecs },
+  ]
+
+  return (
+    <div className="pt-4">
+      {/* Tab buttons */}
+      <div className="flex rounded-xl border border-warm-gray-200 bg-warm-gray-50 p-1">
+        {tabs
+          .filter((t) => t.available)
+          .map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                activeTab === tab.id
+                  ? "bg-white text-[#2D1810] shadow-sm"
+                  : "text-warm-gray-500 hover:text-[#5D4037]"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+      </div>
+
+      {/* Tab content */}
+      <div className="mt-5">
+        {activeTab === "description" && hasDescription && (
+          <motion.div
+            key="description"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25 }}
+            className="text-sm text-[#5D4037]/80 leading-relaxed whitespace-pre-line"
+          >
+            {product.description}
+          </motion.div>
+        )}
+
+        {activeTab === "specs" && hasSpecs && (
+          <motion.div
+            key="specs"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25 }}
+            className="rounded-xl border border-warm-gray-200 bg-white overflow-hidden"
+          >
+            {product.specs!.map((spec, i) => (
+              <div
+                key={spec.label}
+                className={`flex items-start gap-4 px-5 py-3.5 ${
+                  i % 2 === 0 ? "bg-warm-gray-50/50" : ""
+                } ${i < product.specs!.length - 1 ? "border-b border-warm-gray-100" : ""}`}
+              >
+                <span className="text-sm text-warm-gray-500 min-w-[140px] shrink-0">{spec.label}</span>
+                <span className="text-sm font-medium text-[#2D1810]">{spec.value}</span>
+              </div>
+            ))}
+          </motion.div>
+        )}
+      </div>
     </div>
   )
 }
