@@ -3,13 +3,16 @@ import { MapPin, Phone, Search, Heart, ShoppingCart, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Logo } from "@/components/shared/logo"
+import { CartDrawer } from "@/components/shared/cart-drawer"
 import { useScrollShadow } from "@/hooks/use-scroll-shadow"
+import { useCart } from "@/context/cart-context"
 import { navLinks } from "@/data/navigation"
 import { cn } from "@/lib/utils"
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const hasShadow = useScrollShadow()
+  const { totalItems, setCartOpen } = useCart()
 
   return (
     <header
@@ -72,11 +75,33 @@ export function Header() {
                 <Icon className="h-5 w-5" />
               </button>
             ))}
-            <button className="hidden lg:flex relative p-2.5 rounded-lg text-text-light hover:bg-warm-gray-50 hover:text-[#C66B54] transition-colors" aria-label="Корзина">
+
+            {/* Cart button — desktop */}
+            <button
+              className="hidden lg:flex relative p-2.5 rounded-lg text-text-light hover:bg-warm-gray-50 hover:text-[#C66B54] transition-colors"
+              aria-label="Корзина"
+              onClick={() => setCartOpen(true)}
+            >
               <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-0.5 -right-0.5 bg-[#C66B54] text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
-                0
-              </span>
+              {totalItems > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-[#C66B54] text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                  {totalItems > 99 ? "99+" : totalItems}
+                </span>
+              )}
+            </button>
+
+            {/* Cart button — mobile */}
+            <button
+              className="lg:hidden relative p-2.5 rounded-lg text-text-light hover:bg-warm-gray-50 hover:text-[#C66B54] transition-colors"
+              aria-label="Корзина"
+              onClick={() => setCartOpen(true)}
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-[#C66B54] text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                  {totalItems > 99 ? "99+" : totalItems}
+                </span>
+              )}
             </button>
 
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -112,6 +137,9 @@ export function Header() {
           </div>
         </div>
       </div>
+
+      {/* Cart Drawer */}
+      <CartDrawer />
     </header>
   )
 }

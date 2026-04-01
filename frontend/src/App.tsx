@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
+import { CartProvider } from "@/context/cart-context"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { HomePage } from "@/pages/home-page"
@@ -30,7 +31,9 @@ function AppLayout() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AppLayout />
+      <CartProvider>
+        <AppLayout />
+      </CartProvider>
     </BrowserRouter>
   )
 }

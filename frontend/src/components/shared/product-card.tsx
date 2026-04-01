@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
-import { ArrowRight, Package } from "lucide-react"
+import { ArrowRight, Package, ShoppingCart } from "lucide-react"
+import { toast } from "sonner"
 import type { Product } from "@/data/products"
+import { useCart } from "@/context/cart-context"
 
 const statusLabels: Record<Product["status"], { text: string; className: string }> = {
   in_stock: { text: "В наличии", className: "text-emerald-600" },
@@ -10,6 +12,20 @@ const statusLabels: Record<Product["status"], { text: string; className: string 
 
 export function ProductCard({ product }: { product: Product }) {
   const status = statusLabels[product.status]
+  const { addItem, setCartOpen } = useCart()
+
+  function handleAddToCart(e: React.MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    addItem(product)
+    toast.success("Добавлено в корзину", {
+      description: product.name,
+      action: {
+        label: "Открыть",
+        onClick: () => setCartOpen(true),
+      },
+    })
+  }
 
   return (
     <Link to={`/product/${product.id}`} className="block">
@@ -56,10 +72,21 @@ export function ProductCard({ product }: { product: Product }) {
               </span>
             )}
 
-            <span className="flex items-center justify-center gap-2 w-full h-10 rounded-xl bg-gradient-to-r from-[#C66B54] to-[#A85542] text-white text-sm font-semibold group-hover:shadow-md group-hover:shadow-[#C66B54]/20 transition-all duration-300">
-              Подробнее
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="flex items-center justify-center gap-2 flex-1 h-10 rounded-xl bg-gradient-to-r from-[#C66B54] to-[#A85542] text-white text-sm font-semibold group-hover:shadow-md group-hover:shadow-[#C66B54]/20 transition-all duration-300">
+                Подробнее
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+              {product.status === "in_stock" && (
+                <button
+                  onClick={handleAddToCart}
+                  className="flex items-center justify-center h-10 w-10 rounded-xl border-2 border-[#C66B54] text-[#C66B54] hover:bg-[#C66B54] hover:text-white transition-all duration-300 shrink-0"
+                  aria-label="Добавить в корзину"
+                >
+                  <ShoppingCart className="h-4 w-4" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </article>

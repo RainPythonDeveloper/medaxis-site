@@ -11,9 +11,12 @@ import {
   ShieldCheck,
   Wrench,
   MessageCircle,
+  ShoppingCart,
 } from "lucide-react"
+import { toast } from "sonner"
 import { Container } from "@/components/shared/container"
 import { ProductCard } from "@/components/shared/product-card"
+import { useCart } from "@/context/cart-context"
 import { products, type Product } from "@/data/products"
 import { solutions } from "@/data/solutions"
 
@@ -43,6 +46,7 @@ const benefits = [
 
 export function ProductPage() {
   const { id } = useParams<{ id: string }>()
+  const { addItem, setCartOpen } = useCart()
 
   const product = products.find((p) => p.id === id)
 
@@ -196,9 +200,27 @@ export function ProductPage() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              {product.status === "in_stock" && (
+                <button
+                  onClick={() => {
+                    addItem(product)
+                    toast.success("Добавлено в корзину", {
+                      description: product.name,
+                      action: {
+                        label: "Открыть",
+                        onClick: () => setCartOpen(true),
+                      },
+                    })
+                  }}
+                  className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-xl bg-gradient-to-r from-[#C66B54] to-[#A85542] text-white font-semibold text-base shadow-lg shadow-[#C66B54]/25 hover:shadow-xl hover:shadow-[#C66B54]/35 hover:scale-[1.02] transition-all duration-300"
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  Добавить в корзину
+                </button>
+              )}
               <a
                 href="/#contact"
-                className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-xl bg-gradient-to-r from-[#C66B54] to-[#A85542] text-white font-semibold text-base shadow-lg shadow-[#C66B54]/25 hover:shadow-xl hover:shadow-[#C66B54]/35 hover:scale-[1.02] transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-xl border-2 border-[#C66B54] text-[#C66B54] font-semibold text-base hover:bg-[#C66B54]/5 transition-all duration-300"
               >
                 <MessageCircle className="h-5 w-5" />
                 Оставить заявку
