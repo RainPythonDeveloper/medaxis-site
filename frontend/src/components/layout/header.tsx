@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { MapPin, Phone, Search, Heart, ShoppingCart, Menu } from "lucide-react"
+import { MapPin, Phone, ShoppingCart, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Logo } from "@/components/shared/logo"
@@ -62,20 +62,6 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-1">
-            {[
-              { icon: Search, label: "Поиск" },
-              { icon: Heart, label: "Избранное" },
-              { icon: Phone, label: "Позвонить" },
-            ].map(({ icon: Icon, label }) => (
-              <button
-                key={label}
-                className="hidden lg:flex p-2.5 rounded-lg text-text-light hover:bg-warm-gray-50 hover:text-[#C66B54] transition-colors"
-                aria-label={label}
-              >
-                <Icon className="h-5 w-5" />
-              </button>
-            ))}
-
             {/* Cart button — desktop */}
             <button
               className="hidden lg:flex relative p-2.5 rounded-lg text-text-light hover:bg-warm-gray-50 hover:text-[#C66B54] transition-colors"
