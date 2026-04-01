@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
@@ -73,13 +74,12 @@ export function HeroSection() {
               Подробнее
               <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
-            <Button
-              variant="ghost"
-              size="lg"
-              className="h-14 rounded-full border border-white/20 px-8 text-lg font-medium text-white/80 backdrop-blur-sm hover:border-white/40 hover:bg-white/5 hover:text-white"
+            <Link
+              to="/catalog"
+              className="inline-flex items-center justify-center h-14 rounded-full border border-white/20 px-8 text-lg font-medium text-white/80 backdrop-blur-sm hover:border-white/40 hover:bg-white/5 hover:text-white transition-all"
             >
               Каталог
-            </Button>
+            </Link>
           </motion.div>
 
           {/* Stats mini row */}

@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
 import { MapPin, Phone, Search, Heart, ShoppingCart, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -32,12 +31,12 @@ export function Header() {
               +7 (707) 295-84-52
             </a>
           </div>
-          <Button
-            size="sm"
-            className="hidden md:flex bg-white hover:bg-white/90 text-[#C66B54] h-7 text-xs font-semibold"
+          <a
+            href="/#contact"
+            className="hidden md:inline-flex items-center justify-center bg-white hover:bg-white/90 text-[#C66B54] h-7 px-3 text-xs font-semibold rounded-md transition-colors"
           >
             Свяжитесь с нами
-          </Button>
+          </a>
         </div>
       </div>
 
@@ -47,27 +46,16 @@ export function Header() {
           <Logo />
 
           <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) =>
-              link.href.startsWith("/") ? (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className="relative px-3 py-2 text-sm font-medium text-text-main transition-colors hover:text-[#C66B54] group"
-                >
-                  {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C66B54] transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ) : (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="relative px-3 py-2 text-sm font-medium text-text-main transition-colors hover:text-[#C66B54] group"
-                >
-                  {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C66B54] transition-all duration-300 group-hover:w-full" />
-                </a>
-              )
-            )}
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="relative px-3 py-2 text-sm font-medium text-text-main transition-colors hover:text-[#C66B54] group"
+              >
+                {link.label}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C66B54] transition-all duration-300 group-hover:w-full" />
+              </a>
+            ))}
           </nav>
 
           <div className="flex items-center gap-1">
@@ -100,34 +88,24 @@ export function Header() {
               <SheetContent side="right" className="w-full sm:w-[400px]">
                 <div className="flex flex-col gap-6 mt-8">
                   <nav className="flex flex-col gap-1">
-                    {navLinks.map((link) =>
-                      link.href.startsWith("/") ? (
-                        <Link
-                          key={link.href}
-                          to={link.href}
-                          className="px-4 py-3 text-base font-medium rounded-lg hover:bg-warm-gray-50 transition-colors"
-                          onClick={() => setMobileOpen(false)}
-                        >
-                          {link.label}
-                        </Link>
-                      ) : (
-                        <a
-                          key={link.href}
-                          href={link.href}
-                          className="px-4 py-3 text-base font-medium rounded-lg hover:bg-warm-gray-50 transition-colors"
-                          onClick={() => setMobileOpen(false)}
-                        >
-                          {link.label}
-                        </a>
-                      )
-                    )}
+                    {navLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className="px-4 py-3 text-base font-medium rounded-lg hover:bg-warm-gray-50 transition-colors"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
                   </nav>
-                  <Button
-                    className="w-full bg-[#C66B54] hover:bg-[#A85542] text-white"
+                  <a
+                    href="/#contact"
+                    className="w-full inline-flex items-center justify-center h-9 bg-[#C66B54] hover:bg-[#A85542] text-white font-medium rounded-lg transition-colors"
                     onClick={() => setMobileOpen(false)}
                   >
                     Свяжитесь с нами
-                  </Button>
+                  </a>
                 </div>
               </SheetContent>
             </Sheet>
